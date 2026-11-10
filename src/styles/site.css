@@ -2,23 +2,24 @@
 
 :root {
   color-scheme: light dark;
-  --paper: light-dark(#f9faf8, #111827);
-  --ink: light-dark(#19243b, #eef2ff);
-  --muted: light-dark(#4c5b72, #bac6dc);
-  --blue: light-dark(#373c9c, #b5beff);
-  --blue-dark: light-dark(#252875, #e0e5ff);
-  --line: light-dark(#d5dce5, #40516b);
-  --card: light-dark(#fff, #192337);
-  --tint: light-dark(#edf0ff, #263351);
-  --mint: light-dark(#e3f4ed, #163b3d);
-  --featured: light-dark(#f0f1ff, #202945);
-  --header: light-dark(#f1f4fa, #1b2439);
-  --footer: light-dark(#20254a, #0d1425);
-  --footer-end: light-dark(#173b42, #102b32);
-  --button: #383da2;
-  --button-end: #176260;
-  --diagram: #252c62;
-  --diagram-text: #dce8ff;
+  --navy: #00105b;
+  --iris: #6061b6;
+  --lavender: #c9b5e0;
+  --cream: #fcf9ec;
+  --paper: light-dark(var(--cream), var(--navy));
+  --ink: light-dark(var(--navy), var(--cream));
+  --muted: light-dark(color-mix(in srgb, var(--navy) 70%, var(--iris)), var(--lavender));
+  --accent: light-dark(color-mix(in srgb, var(--navy) 38%, var(--iris)), var(--lavender));
+  --accent-strong: light-dark(var(--navy), var(--cream));
+  --line: light-dark(color-mix(in srgb, var(--lavender) 72%, var(--cream)), color-mix(in srgb, var(--iris) 72%, var(--navy)));
+  --card: light-dark(var(--cream), color-mix(in srgb, var(--navy) 89%, var(--iris)));
+  --tint: light-dark(color-mix(in srgb, var(--lavender) 28%, var(--cream)), color-mix(in srgb, var(--iris) 32%, var(--navy)));
+  --glow: light-dark(color-mix(in srgb, var(--lavender) 53%, var(--cream)), color-mix(in srgb, var(--lavender) 23%, var(--navy)));
+  --featured: light-dark(color-mix(in srgb, var(--lavender) 35%, var(--cream)), color-mix(in srgb, var(--iris) 24%, var(--navy)));
+  --header: light-dark(color-mix(in srgb, var(--lavender) 15%, var(--cream)), color-mix(in srgb, var(--iris) 12%, var(--navy)));
+  --footer-end: color-mix(in srgb, var(--iris) 42%, var(--navy));
+  --diagram: color-mix(in srgb, var(--iris) 20%, var(--navy));
+  --shadow: color-mix(in srgb, var(--navy) 18%, transparent);
   --radius: 8px;
   --ease-out: cubic-bezier(.2, .7, .25, 1);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -49,9 +50,9 @@ main { flex: 1; }
 h1, h2, h3, p, dl, dd, figure { margin: 0; }
 h1, h2, h3 { line-height: 1.1; text-wrap: balance; }
 p { max-inline-size: 68ch; }
-a { color: var(--blue); text-underline-offset: .22em; }
-a:hover { color: var(--blue-dark); }
-:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+a { color: var(--accent); text-underline-offset: .22em; }
+a:hover { color: var(--accent-strong); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 section[id] { scroll-margin-block-start: 1.5rem; }
 
 .wrap {
@@ -114,7 +115,7 @@ section[id] { scroll-margin-block-start: 1.5rem; }
   inset: auto 0 .35rem;
   height: 2px;
   border-radius: 2px;
-  background: var(--blue);
+  background: var(--accent);
   content: '';
   transform: scaleX(0);
   transform-origin: left;
@@ -139,15 +140,15 @@ section[id] { scroll-margin-block-start: 1.5rem; }
 .theme-toggle[hidden], .theme-toggle .theme-sun,
 .theme-toggle[aria-pressed="true"] .theme-moon { display: none; }
 .theme-toggle[aria-pressed="true"] .theme-sun { display: block; }
-.theme-toggle:hover { border-color: var(--blue); background: var(--tint); }
+.theme-toggle:hover { border-color: var(--accent); background: var(--tint); }
 .hero {
   padding-block: clamp(3.25rem, 7.2vw, 6.25rem) clamp(3.2rem, 6.5vw, 5.5rem);
   background:
     radial-gradient(ellipse at 88% 18%, var(--tint), transparent 59%),
-    radial-gradient(ellipse at 85% 82%, var(--mint), transparent 47%);
+    radial-gradient(ellipse at 85% 82%, var(--glow), transparent 47%);
 }
 .eyebrow, .diagram-label {
-  color: var(--blue);
+  color: var(--accent);
   font-family: ui-monospace, Consolas, monospace;
   font-size: .77rem;
   font-weight: 700;
@@ -159,7 +160,7 @@ section[id] { scroll-margin-block-start: 1.5rem; }
   width: 1.65rem;
   height: 2px;
   flex: none;
-  background: var(--button);
+  background: var(--navy);
 }
 
 h1 {
@@ -192,17 +193,17 @@ h1 {
 .button {
   padding: .65rem .95rem;
   border-radius: 5px;
-  background: linear-gradient(115deg, var(--button), var(--button-end), var(--button)) 0 0 / 200% 100%;
-  color: white;
+  background: linear-gradient(115deg, var(--navy), var(--iris), var(--navy)) 0 0 / 200% 100%;
+  color: var(--cream);
   text-decoration: none;
 }
-.button:hover { background-position: 100% 0; color: white; }
+.button:hover { background-position: 100% 0; color: var(--cream); }
 .button-outline {
-  border: 1px solid var(--blue);
+  border: 1px solid var(--accent);
   background: transparent;
-  color: var(--blue);
+  color: var(--accent);
 }
-.button-outline:hover { background: var(--tint); color: var(--blue-dark); }
+.button-outline:hover { background: var(--tint); color: var(--accent-strong); }
 
 .home-section {
   padding-block: 1.7rem clamp(3rem, 6vw, 5rem);
@@ -225,9 +226,9 @@ h1 {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
   align-items: center;
   gap: clamp(1.3rem, 4vw, 3rem);
-  background: linear-gradient(132deg, var(--featured) 20%, var(--card) 67%, var(--mint));
+  background: linear-gradient(132deg, var(--featured) 20%, var(--card) 67%, var(--glow));
 }
-.project-card:focus-within { border-color: var(--blue); }
+.project-card:focus-within { border-color: var(--accent); }
 .housing-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
@@ -267,7 +268,7 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 4px;
   background: var(--tint);
-  color: var(--blue-dark);
+  color: var(--accent-strong);
   font-size: .78rem;
   font-weight: 650;
 }
@@ -280,7 +281,7 @@ h1 {
   padding: clamp(.9rem, 3vw, 1.45rem);
   border-radius: var(--radius);
   background: var(--diagram);
-  color: white;
+  color: var(--cream);
 }
 .workflow figcaption {
   display: grid;
@@ -289,7 +290,7 @@ h1 {
   font-size: 1.05rem;
   font-weight: 680;
 }
-.diagram-label { color: var(--diagram-text); }
+.diagram-label { color: var(--lavender); }
 .workflow ol {
   display: grid;
   gap: .55rem;
@@ -302,15 +303,15 @@ h1 {
   align-items: baseline;
   gap: .65rem;
   padding: .42rem .65rem;
-  border: 1px solid #738ab5;
+  border: 1px solid var(--iris);
   border-radius: 4px;
-  background: #234786;
-  color: white;
+  background: var(--footer-end);
+  color: var(--cream);
   font-size: .875rem;
 }
 .workflow li span {
   flex: none;
-  color: var(--diagram-text);
+  color: var(--lavender);
   font: 700 .75rem ui-monospace, Consolas, monospace;
 }
 
@@ -332,7 +333,7 @@ h1 {
   height: auto;
   padding: .65rem;
   border-radius: var(--radius);
-  background: light-dark(transparent, #eef2fb);
+  background: light-dark(transparent, var(--cream));
 }
 
 .skills-grid {
@@ -346,7 +347,7 @@ h1 {
   border-radius: var(--radius);
   background: var(--card);
 }
-.skills-grid dt { color: var(--blue); font-weight: 700; }
+.skills-grid dt { color: var(--accent); font-weight: 700; }
 .skills-grid dd { margin-top: .35rem; color: var(--muted); }
 .skill-badges { margin-top: .55rem; }
 .skill-badges li { display: inline-flex; align-items: center; gap: .4rem; }
@@ -368,7 +369,7 @@ h1 {
   gap: clamp(.75rem, 4vw, 2rem);
   padding: clamp(1.15rem, 3.1vw, 2.2rem);
   border: 1px solid var(--line);
-  border-inline-start: 3px solid var(--blue);
+  border-inline-start: 3px solid var(--accent);
   border-radius: var(--radius);
   background: var(--card);
 }
@@ -406,7 +407,7 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   border-radius: var(--radius);
   background: var(--card);
 }
-.image-viewer::backdrop { background: rgb(4 9 19 / 86%); }
+.image-viewer::backdrop { background: color-mix(in srgb, var(--navy) 88%, transparent); }
 .image-viewer form {
   display: flex;
   justify-content: flex-end;
@@ -425,7 +426,7 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   font: 1.6rem/1 system-ui, sans-serif;
   cursor: pointer;
 }
-.image-viewer-close:hover { border-color: var(--blue); }
+.image-viewer-close:hover { border-color: var(--accent); }
 .image-viewer img {
   display: block;
   max-width: 100%;
@@ -434,7 +435,7 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   object-fit: contain;
 }
 
-.site-footer { background: linear-gradient(120deg, var(--footer) 28%, var(--footer-end)); color: #edf3ff; }
+.site-footer { background: linear-gradient(120deg, var(--navy) 28%, var(--footer-end)); color: var(--cream); }
 .footer-inner {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
@@ -442,16 +443,16 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   padding-block: 2.25rem;
 }
 .footer-brand p:first-child, .footer-inner h2 { font-size: 1.125rem; font-weight: 700; }
-.footer-brand p + p { color: #becce4; font-size: .9rem; }
+.footer-brand p + p { color: var(--lavender); font-size: .9rem; }
 .footer-links { margin: .45rem 0 0; padding: 0; list-style: none; }
-.footer-links a { gap: .65rem; color: #e1ecff; font-weight: 650; text-decoration: none; }
-.footer-links a:focus-visible { outline-color: #a6c5ff; }
-.footer-links a:hover { color: #fff; }
+.footer-links a { gap: .65rem; color: var(--cream); font-weight: 650; text-decoration: none; }
+.footer-links a:focus-visible { outline-color: var(--lavender); }
+.footer-links a:hover { color: var(--cream); }
 .footer-links a::after { background: currentColor; }
 .footer-bottom {
   padding-block: 1rem 1.15rem;
-  border-block-start: 1px solid #b8cad23d;
-  color: #becce4;
+  border-block-start: 1px solid color-mix(in srgb, var(--lavender) 28%, transparent);
+  color: var(--lavender);
   font-size: .875rem;
 }
 
@@ -464,9 +465,9 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   }
   .project-card { transition: border-color 220ms ease, box-shadow 220ms ease; }
   @media (hover: hover) {
-    .button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px #14234b26; }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--shadow); }
     .button:active { transform: translateY(0); }
-    .project-card:hover { box-shadow: 0 12px 32px #14234b24; }
+    .project-card:hover { box-shadow: 0 12px 32px var(--shadow); }
   }
 }
 
