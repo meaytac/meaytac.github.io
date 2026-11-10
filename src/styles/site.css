@@ -19,7 +19,9 @@
   --header: light-dark(color-mix(in srgb, var(--lavender) 15%, var(--cream)), color-mix(in srgb, var(--iris) 12%, var(--navy)));
   --footer-end: color-mix(in srgb, var(--iris) 42%, var(--navy));
   --diagram: color-mix(in srgb, var(--iris) 20%, var(--navy));
-  --shadow: color-mix(in srgb, var(--navy) 18%, transparent);
+  --shadow: light-dark(color-mix(in srgb, var(--navy) 18%, transparent), color-mix(in srgb, var(--lavender) 26%, transparent));
+  --hover-border: light-dark(var(--iris), color-mix(in srgb, var(--lavender) 80%, var(--iris)));
+  --hover-surface: light-dark(var(--tint), color-mix(in srgb, var(--lavender) 28%, var(--navy)));
   --radius: 8px;
   --ease-out: cubic-bezier(.2, .7, .25, 1);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -140,7 +142,7 @@ section[id] { scroll-margin-block-start: 1.5rem; }
 .theme-toggle[hidden], .theme-toggle .theme-sun,
 .theme-toggle[aria-pressed="true"] .theme-moon { display: none; }
 .theme-toggle[aria-pressed="true"] .theme-sun { display: block; }
-.theme-toggle:hover { border-color: var(--accent); background: var(--tint); }
+.theme-toggle:hover { border-color: var(--hover-border); background: var(--hover-surface); }
 .hero {
   padding-block: clamp(3.25rem, 7.2vw, 6.25rem) clamp(3.2rem, 6.5vw, 5.5rem);
   background:
@@ -206,7 +208,7 @@ h1 {
   background: transparent;
   color: var(--accent);
 }
-.button-outline:hover { background: var(--tint); color: var(--accent-strong); }
+.button-outline:hover { background: var(--hover-surface); color: var(--accent-strong); }
 
 .home-section {
   padding-block: 1.7rem clamp(3rem, 6vw, 5rem);
@@ -429,7 +431,7 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   font: 1.6rem/1 system-ui, sans-serif;
   cursor: pointer;
 }
-.image-viewer-close:hover { border-color: var(--accent); }
+.image-viewer-close:hover { border-color: var(--hover-border); background: var(--hover-surface); }
 .image-viewer img {
   display: block;
   max-width: 100%;
@@ -459,18 +461,24 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   font-size: .875rem;
 }
 
+@media (hover: hover) {
+  .project-card:hover, .skills-grid > div:hover, .housing-gallery a:hover img {
+    border-color: var(--hover-border);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  a, .theme-toggle { transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease; }
+  a, .theme-toggle, .image-viewer-close { transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease; }
   .brand::after, .header-inner nav a::after, .footer-links a::after { transition: transform 220ms var(--ease-out); }
   .button {
     transition: background-position 350ms var(--ease-out), background-color 180ms ease,
       color 180ms ease, transform 220ms var(--ease-out), box-shadow 220ms ease;
   }
-  .project-card, .skills-grid > div { transition: border-color 220ms ease, box-shadow 220ms ease; }
+  .project-card, .skills-grid > div, .housing-gallery img { transition: border-color 220ms ease, box-shadow 220ms ease; }
   @media (hover: hover) {
     .button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--shadow); }
     .button:active { transform: translateY(0); }
-    .project-card:hover, .skills-grid > div:hover { box-shadow: 0 12px 32px var(--shadow); }
+    .project-card:hover, .skills-grid > div:hover, .housing-gallery a:hover img { box-shadow: 0 12px 32px var(--shadow); }
   }
 }
 
