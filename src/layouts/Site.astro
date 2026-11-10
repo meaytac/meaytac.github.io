@@ -82,11 +82,11 @@ const navigation = [
       <slot />
     </main>
     <footer class="site-footer">
-      <slot name="contact" />
       <div class="wrap footer-inner">
         <div class="footer-brand">
           <p>{profile.name}</p>
           <p>{profile.title}</p>
+          <slot name="contact" />
         </div>
         <div>
           <h2 id="footer-navigation">Navigation</h2>

@@ -3,7 +3,7 @@ import { settings } from '../content/settings';
 
 const accessKey = settings.web3FormsAccessKey.trim();
 ---
-<section id="contact" class="wrap contact-section" aria-labelledby="contact-title">
+<section id="contact" class="contact-section" aria-labelledby="contact-title">
   <h2 id="contact-title">Contact</h2>
   {!accessKey && <p id="contact-unavailable">The contact form is currently unavailable. You can reach me directly using the links below.</p>}
 
@@ -76,14 +76,11 @@ const accessKey = settings.web3FormsAccessKey.trim();
 
 <style>
   .contact-section {
-    max-width: 48rem;
-    padding-block: clamp(1.5rem, 3vw, 2.5rem) 1.25rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--lavender) 28%, transparent);
+    max-width: 32rem;
+    margin-block-start: 1.25rem;
   }
   h2 {
     margin-bottom: .85rem;
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    letter-spacing: -.055em;
   }
   p { color: var(--lavender); }
   #contact-unavailable { margin-bottom: 1rem; }
@@ -103,7 +100,7 @@ const accessKey = settings.web3FormsAccessKey.trim();
   }
   textarea { resize: vertical; }
   .contact-section :focus-visible { outline-color: var(--lavender); }
-  .button { margin-top: .75rem; border: 0; cursor: pointer; }
+  .button { margin-top: .75rem; border: 0; font-family: inherit; cursor: pointer; }
   .button:disabled { cursor: not-allowed; opacity: .7; transform: none; box-shadow: none; }
   #contact-status:not(:empty) { margin-top: .75rem; }
 
