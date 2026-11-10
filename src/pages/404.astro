@@ -1,0 +1,15 @@
+---
+import Site from '../layouts/Site.astro';
+import { profile } from '../content/portfolio';
+---
+<Site title={`Page not found | ${profile.name}`} description="Find your way back to Mustafa Eren Aytaç’s portfolio and project case studies." notFound>
+  <section class="wrap error-page">
+    <p class="eyebrow">Error 404</p>
+    <h1>Page not found</h1>
+    <p>The page may have moved or the address may be incomplete.</p>
+    <div class="hero-actions">
+      <a class="button" href="/">Go to the homepage <span aria-hidden="true">↗</span></a>
+      <a class="secondary-action" href="/#work">Browse Projects</a>
+    </div>
+  </section>
+</Site>

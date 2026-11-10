@@ -1,0 +1,113 @@
+---
+import { profile } from '../content/portfolio';
+import { contacts, settings } from '../content/settings';
+import { localAsset } from '../content/assets';
+import { resume } from '../content/resume';
+import ContactIcon from '../components/ContactIcon.astro';
+import ImageViewer from '../components/ImageViewer.astro';
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+  notFound?: boolean;
+}
+
+const { title, description, notFound = false } = Astro.props;
+const canonical = Astro.site && !notFound ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const shareImage = localAsset(settings.shareImagePath, /\.(png|jpe?g|webp)$/i);
+const navigation = [
+  { label: 'Projects', href: '/#work' },
+  { label: 'About', href: '/#about' },
+  { label: 'Education', href: '/#education' },
+  { label: 'Skills', href: '/#skills' },
+  ...(contacts.length > 0 ? [{ label: 'Contact', href: '#contact' }] : []),
+  ...(resume.pdf || resume.image ? [{ label: 'Résumé', href: '/resume/' }] : []),
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      const root = document.documentElement;
+      let savedTheme;
+      try { savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
+      if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.querySelector('#theme-toggle');
+        const preference = matchMedia('(prefers-color-scheme: dark)');
+        const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : preference.matches;
+        const update = () => toggle.setAttribute('aria-pressed', String(isDark()));
+        update();
+        toggle.hidden = false;
+        preference.addEventListener('change', update);
+        toggle.addEventListener('click', () => {
+          const theme = isDark() ? 'light' : 'dark';
+          root.dataset.theme = theme;
+          try { localStorage.setItem('portfolio-theme', theme); } catch {}
+          update();
+        });
+      });
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {notFound && <meta name="robots" content="noindex" />}
+    {canonical && <link rel="canonical" href={canonical.href} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical.href} />}
+    {canonical && shareImage && <meta property="og:image" content={new URL(shareImage, canonical).href} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/">Home</a>
+        <nav aria-label="Main navigation">
+          {navigation.map(({ label, href }) => <a href={href}>{label}</a>)}
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" hidden>
+          <svg class="theme-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 15.1A8.5 8.5 0 0 1 8.9 4a8.5 8.5 0 1 0 11.1 11.1Z" /></svg>
+          <svg class="theme-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" /></svg>
+        </button>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer id={contacts.length > 0 ? 'contact' : undefined} class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <p>{profile.name}</p>
+          <p>{profile.title}</p>
+        </div>
+        <div>
+          <h2 id="footer-navigation">Navigation</h2>
+          <nav aria-labelledby="footer-navigation">
+            <ul class="footer-links" role="list">
+              {navigation.map(({ label, href }) => <li><a href={href}>{label}</a></li>)}
+            </ul>
+          </nav>
+        </div>
+        {contacts.length > 0 && (
+          <div>
+            <h2>Contact</h2>
+            <ul class="footer-links footer-contacts" role="list">
+              {contacts.map(({ label, href }) => <li><a href={href}><ContactIcon label={label} /> {label}</a></li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+      <div class="wrap footer-bottom">
+        <p>© 2026 Mustafa Eren Aytaç. All rights reserved.</p>
+      </div>
+    </footer>
+    <ImageViewer />
+  </body>
+</html>

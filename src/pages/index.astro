@@ -1,0 +1,79 @@
+---
+import Site from '../layouts/Site.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SkillIcon from '../components/SkillIcon.astro';
+import { profile, projects } from '../content/portfolio';
+import { resume } from '../content/resume';
+---
+<Site title={`${profile.name} | ${profile.title}`} description="Explore Mustafa Eren Aytaç’s work in AI and machine learning, Python data analysis, and full-stack development with ASP.NET Core.">
+  <div class="wrap">
+    <section class="hero" aria-labelledby="home-title">
+      <p class="eyebrow hero-role"><span class="role-marker" aria-hidden="true"></span>{profile.title}</p>
+      <h1 id="home-title">{profile.name}</h1>
+      <p class="hero-intro">{profile.introduction}</p>
+      <div class="hero-actions">
+        <a class="button" href="#work">View Projects <span aria-hidden="true">↓</span></a>
+        {(resume.pdf || resume.image) && <a class="button button-outline" href="/resume/">View Résumé <span aria-hidden="true">↗</span></a>}
+      </div>
+    </section>
+
+    <section id="work" class="home-section" aria-labelledby="work-title">
+      <div class="section-heading">
+        <p class="eyebrow"><span aria-hidden="true">01 / </span>Portfolio</p>
+        <h2 id="work-title">Projects</h2>
+      </div>
+      <ProjectCard project={projects[0]} />
+    </section>
+
+    <section id="about" class="home-section about" aria-labelledby="about-title">
+      <div class="section-heading">
+        <p class="eyebrow"><span aria-hidden="true">02 / </span>Background</p>
+        <h2 id="about-title">About</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-overview">
+          {profile.about.map((paragraph) => <p class="about-intro">{paragraph}</p>)}
+          <a class="secondary-action" href={`/projects/${projects[0].slug}/`}>See the internship project</a>
+        </div>
+        <img class="about-emblem" src="/about/digital-transformation-office.png" width="220" height="74"
+          alt="Malatya Turgut Özal University Digital Transformation Office logo" loading="lazy" />
+      </div>
+    </section>
+
+    <section id="education" class="home-section" aria-labelledby="education-title">
+      <div class="section-heading">
+        <p class="eyebrow"><span aria-hidden="true">03 / </span>University</p>
+        <h2 id="education-title">Education</h2>
+      </div>
+      <div class="education-card">
+        <div class="education-details">
+          <h3>{profile.education.program}</h3>
+          <p>{profile.education.institution}</p>
+          <p class="education-dates">{profile.education.started} – {profile.education.expectedGraduation} (expected)</p>
+          <p>GPA <strong>{profile.education.gpa}</strong></p>
+        </div>
+        <img class="education-emblem" src="/education/mtu-emblem.png" width="195" height="185" alt="Malatya Turgut Özal University emblem" loading="lazy" />
+      </div>
+    </section>
+
+    <section id="skills" class="home-section" aria-labelledby="skills-title">
+      <div class="section-heading">
+        <p class="eyebrow"><span aria-hidden="true">04 / </span>Toolkit</p>
+        <h2 id="skills-title">Skills</h2>
+      </div>
+      <dl class="skills-grid">
+        {profile.skills.map(({ area, badges }) => (
+          <div>
+            <dt>{area}</dt>
+            <dd>
+              <ul class="tags skill-badges" role="list">
+                {badges.map(({ label, symbol }) => <li><SkillIcon {label} {symbol} />{label}</li>)}
+              </ul>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+  </div>
+</Site>

@@ -1,0 +1,28 @@
+---
+import Site from '../../layouts/Site.astro';
+import { profile } from '../../content/portfolio';
+import { resume } from '../../content/resume';
+
+if (!resume.pdf && !resume.image) return Astro.redirect('/');
+---
+<Site title={`Résumé | ${profile.name}`} description={`View or download ${profile.name}’s software engineering résumé.`}>
+  <article class="wrap case-study resume-page">
+    <a class="back-link" href="/"><span aria-hidden="true">←</span> Back to homepage</a>
+    <header class="case-header">
+      <p class="eyebrow">{profile.name}</p>
+      <h1>Résumé</h1>
+      <div class="hero-actions">
+        {resume.image && <a class="button button-outline" href="#resume-preview">View Image <span aria-hidden="true">↓</span></a>}
+        {resume.pdf && <a class="button" href={resume.pdf} download>Download PDF <span aria-hidden="true">↓</span></a>}
+      </div>
+    </header>
+    {resume.image && (
+      <figure id="resume-preview" class="resume-preview">
+        <a href={resume.image.path} data-image-viewer aria-label="Open the full-size résumé image">
+          <img src={resume.image.path} width={resume.image.width} height={resume.image.height}
+            alt="Mustafa Eren Aytaç’s one-page résumé, covering education, internship experience, skills, and languages." />
+        </a>
+      </figure>
+    )}
+  </article>
+</Site>

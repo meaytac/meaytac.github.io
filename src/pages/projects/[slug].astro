@@ -1,0 +1,49 @@
+---
+import Site from '../../layouts/Site.astro';
+import ProjectLinks from '../../components/ProjectLinks.astro';
+import Workflow from '../../components/Workflow.astro';
+import HousingScreenshots from '../../components/HousingScreenshots.astro';
+import { profile, projects, type Project } from '../../content/portfolio';
+
+export function getStaticPaths() {
+  return projects.filter((project) => project.study).map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props { project: Project }
+const { project } = Astro.props;
+---
+<Site title={`${project.title} | ${profile.name}`} description={project.summary}>
+  <article class="wrap case-study">
+    <a class="back-link" href="/#work"><span aria-hidden="true">←</span> Back to Projects</a>
+    <header class="case-header">
+      <p class="eyebrow">{project.context}</p>
+      <h1>{project.title}</h1>
+      <p class="case-intro">{project.summary}</p>
+      <ul class="tags" aria-label="Technologies and topics">
+        {project.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+      <ProjectLinks project={project} />
+    </header>
+    <div class:list={['case-grid', { 'with-workflow': project.slug === 'residence-management-system' }]}>
+      <div class="case-sections">
+        {project.study?.map(({ heading, paragraphs }) => (
+          <section>
+            <h2>{heading}</h2>
+            {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </section>
+        ))}
+      </div>
+      {project.slug === 'residence-management-system' && <Workflow />}
+    </div>
+    {project.slug === 'residence-management-system' && (
+      <section class="case-gallery" aria-labelledby="screenshots-title">
+        <h2 id="screenshots-title">Screenshots</h2>
+        <p>The application interface is in Turkish. Select an image to open it at full size.</p>
+        <HousingScreenshots />
+      </section>
+    )}
+  </article>
+</Site>

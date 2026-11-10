@@ -1,0 +1,26 @@
+---
+import ContactIcon from './ContactIcon.astro';
+
+interface Props { label: string; symbol: string }
+const { label, symbol } = Astro.props;
+const paths: Record<string, string> = {
+  NumPy: 'M12 3 21 8v9l-9 5-9-5V8z M3 8l9 5 9-5 M12 13v9 M8 5.2l9 5',
+  pandas: 'M4 6v12m5-15v5m0 3v4m0 3v3m6-18v3m0 3v4m0 3v5m5-15v12',
+  Jupyter: 'M3 8a10 5 0 0 1 18 0M3 16a10 5 0 0 0 18 0m-2-12h.01M5 20h.01',
+  'Data preparation and analysis': 'M3 3v18h18M7 17v-4m5 4V9m5 8v-7M6 9l5-4 5 2 4-4',
+  'Machine learning fundamentals': 'M4 7h.01M4 17h.01m8-12h.01m0 7h.01m0 7h.01m8-7h.01M5 7l6-2m-6 2 6 5m-6 5 6-5m-6 5 6 2m2-14 6 7m-6 0h6m-6 7 6-7',
+  'REST APIs': 'M3 8h17m-4-4 4 4-4 4M21 16H4m4-4-4 4 4 4',
+  SQLite: 'M4 6a8 3 0 0 1 16 0 8 3 0 0 1-16 0zm0 0v12a8 3 0 0 0 16 0V6M4 12a8 3 0 0 0 16 0',
+  SQL: 'M4 6a8 3 0 0 1 16 0 8 3 0 0 1-16 0zm0 0v12a8 3 0 0 0 16 0V6M4 12a8 3 0 0 0 16 0',
+  HTML: 'm8 6-6 6 6 6m8-12 6 6-6 6m-2-14-4 16',
+  CSS: 'M9 3H7a2 2 0 0 0-2 2v4l-3 3 3 3v4a2 2 0 0 0 2 2h2m6-18h2a2 2 0 0 1 2 2v4l3 3-3 3v4a2 2 0 0 1-2 2h-2',
+  Git: 'M6 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm12-12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM6 8v8m12-8a8 8 0 0 1-8 8H8',
+};
+---
+<span class="skill-symbol" aria-hidden="true">
+  {label === 'GitHub' ? <ContactIcon label={label} /> : paths[label] ? (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d={paths[label]} />
+    </svg>
+  ) : symbol}
+</span>

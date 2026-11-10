@@ -1,0 +1,18 @@
+---
+import type { Project } from '../content/portfolio';
+
+interface Props {
+  project: Project;
+  showStudy?: boolean;
+}
+const { project, showStudy = false } = Astro.props;
+const links = project.links.filter(({ href }) => href);
+---
+{(showStudy && project.study || links.length > 0) && (
+  <ul class="project-links">
+    {showStudy && project.study && (
+      <li><a href={`/projects/${project.slug}/`}>{project.linkLabel} <span aria-hidden="true">↗</span></a></li>
+    )}
+    {links.map(({ label, href }) => <li><a href={href}>{label} <span aria-hidden="true">↗</span></a></li>)}
+  </ul>
+)}

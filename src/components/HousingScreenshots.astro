@@ -1,0 +1,19 @@
+---
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const screenshots = [
+  { file: 'application.jpg', width: 1425, height: 990, title: 'Public application form', alt: 'Blank housing application form with steps for applicant details, facility selection, and supporting documents.' },
+  { file: 'admin-dashboard.jpg', width: 1440, height: 1000, title: 'Administrator dashboard', alt: 'Administration dashboard with facility and room summaries and links to configuration and audit history.' },
+  { file: 'sign-in.jpg', width: 1425, height: 990, title: 'Public portal', alt: 'Public housing portal with sign-in, application creation, status tracking, and announcements.' },
+];
+---
+<div class:list={['housing-gallery', { 'housing-gallery-compact': compact }]}>
+  {screenshots.slice(0, compact ? 2 : screenshots.length).map(({ file, width, height, title, alt }) => (
+    <figure>
+      <a href={`/projects/housing/${file}`} data-image-viewer aria-label={`Open full-size screenshot of the ${title.toLowerCase()}`}>
+        <img src={`/projects/housing/${file}`} {width} {height} {alt} loading="lazy" decoding="async" />
+      </a>
+      <figcaption>{title}</figcaption>
+    </figure>
+  ))}
+</div>
