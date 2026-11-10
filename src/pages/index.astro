@@ -6,8 +6,8 @@ import { profile, projects } from '../content/portfolio';
 import { resume } from '../content/resume';
 ---
 <Site title={`${profile.name} | ${profile.title}`} description="Explore Mustafa Eren Aytaç’s work in AI and machine learning, Python data analysis, and full-stack development with ASP.NET Core.">
-  <div class="wrap">
-    <section class="hero" aria-labelledby="home-title">
+  <section class="hero" aria-labelledby="home-title">
+    <div class="wrap">
       <p class="eyebrow hero-role"><span class="role-marker" aria-hidden="true"></span>{profile.title}</p>
       <h1 id="home-title">{profile.name}</h1>
       <p class="hero-intro">{profile.introduction}</p>
@@ -15,8 +15,10 @@ import { resume } from '../content/resume';
         <a class="button" href="#work">View Projects <span aria-hidden="true">↓</span></a>
         {(resume.pdf || resume.image) && <a class="button button-outline" href="/resume/">View Résumé <span aria-hidden="true">↗</span></a>}
       </div>
-    </section>
+    </div>
+  </section>
 
+  <div class="wrap">
     <section id="work" class="home-section" aria-labelledby="work-title">
       <div class="section-heading">
         <p class="eyebrow"><span aria-hidden="true">01 / </span>Portfolio</p>
