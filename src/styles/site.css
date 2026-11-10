@@ -466,11 +466,11 @@ html:has(.image-viewer[open]) { overflow: hidden; }
     transition: background-position 350ms var(--ease-out), background-color 180ms ease,
       color 180ms ease, transform 220ms var(--ease-out), box-shadow 220ms ease;
   }
-  .project-card { transition: border-color 220ms ease, box-shadow 220ms ease; }
+  .project-card, .skills-grid > div { transition: border-color 220ms ease, box-shadow 220ms ease; }
   @media (hover: hover) {
     .button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--shadow); }
     .button:active { transform: translateY(0); }
-    .project-card:hover { box-shadow: 0 12px 32px var(--shadow); }
+    .project-card:hover, .skills-grid > div:hover { box-shadow: 0 12px 32px var(--shadow); }
   }
 }
 
