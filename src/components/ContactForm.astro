@@ -1,0 +1,112 @@
+---
+import { settings } from '../content/settings';
+
+const accessKey = settings.web3FormsAccessKey.trim();
+---
+<section id="contact" class="wrap contact-section" aria-labelledby="contact-title">
+  <h2 id="contact-title">Contact</h2>
+  {!accessKey && <p id="contact-unavailable">The contact form is currently unavailable. You can reach me directly using the links below.</p>}
+
+  <form id="contact-form" action="https://api.web3forms.com/submit" method="POST"
+    aria-labelledby="contact-title" aria-describedby={!accessKey ? 'contact-unavailable' : undefined}>
+    <input type="hidden" name="access_key" value={accessKey} />
+    <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+    <input type="checkbox" name="botcheck" hidden />
+    <fieldset aria-label="Message details">
+      <div class="contact-fields">
+        <div class="contact-field">
+          <label for="contact-name">Your Name</label>
+          <input id="contact-name" type="text" name="name" autocomplete="name" required />
+        </div>
+        <div class="contact-field">
+          <label for="contact-email">Your Email</label>
+          <input id="contact-email" type="email" name="email" autocomplete="email" required />
+        </div>
+        <div class="contact-field contact-message">
+          <label for="contact-message">Your Message</label>
+          <textarea id="contact-message" name="message" rows="5" required></textarea>
+        </div>
+      </div>
+      <button class="button" type="submit" disabled={!accessKey}>Send Message</button>
+    </fieldset>
+  </form>
+
+  <p id="contact-status" role="status" aria-live="polite" aria-atomic="true"></p>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const fields = form?.querySelector('fieldset');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const status = document.querySelector('#contact-status');
+
+  if (form && fields && submit && status) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (fields.disabled || submit.disabled || !form.reportValidity()) return;
+
+      const data = new FormData(form);
+      // The redirect is for the native HTML POST only.
+      data.delete('redirect');
+      fields.disabled = true;
+      submit.textContent = 'Sending…';
+      status.textContent = 'Sending your message…';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(Object.fromEntries(data)),
+          signal: AbortSignal.timeout(15000),
+        });
+        const result = await response.json();
+        if (!response.ok || result?.success !== true) throw new Error('Submission failed');
+
+        form.reset();
+        status.textContent = 'Thanks for your message. It was sent successfully.';
+      } catch {
+        status.textContent = 'Your message could not be sent. Please try again or contact me directly using the links below.';
+      } finally {
+        fields.disabled = false;
+        submit.textContent = 'Send Message';
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact-section {
+    padding-block: clamp(2rem, 5vw, 4rem) 1.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--lavender) 28%, transparent);
+  }
+  h2 {
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    letter-spacing: -.055em;
+  }
+  p { color: var(--lavender); }
+  #contact-unavailable { margin-bottom: 1rem; }
+  fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+  .contact-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .contact-field { display: grid; gap: .35rem; }
+  .contact-message { grid-column: 1 / -1; }
+  label { font-weight: 650; }
+  .contact-field input, textarea {
+    width: 100%;
+    padding: .65rem .85rem;
+    border: 1px solid var(--iris);
+    border-radius: var(--radius);
+    background: var(--diagram);
+    color: var(--cream);
+    font: inherit;
+  }
+  textarea { resize: vertical; }
+  .contact-section :focus-visible { outline-color: var(--lavender); }
+  .button { margin-top: 1rem; border: 0; cursor: pointer; }
+  .button:disabled { cursor: not-allowed; opacity: .7; transform: none; box-shadow: none; }
+  #contact-status { margin-top: .75rem; }
+
+  @media (max-width: 42rem) {
+    .contact-fields { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

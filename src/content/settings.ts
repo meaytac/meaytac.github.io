@@ -4,6 +4,7 @@ export const settings = {
   resumePath: '/resume/mustafa-eren-aytac-cv.pdf',
   resumeImage: { path: '/resume/mustafa-eren-aytac-cv.jpg', width: 1414, height: 2000 },
   email: 'mu.erenaytac@gmail.com',
+  web3FormsAccessKey: '',
   github: 'https://github.com/meaytac',
   linkedin: 'https://www.linkedin.com/in/mustafaerenaytac',
   kaggle: 'https://www.kaggle.com/erenaytac',

@@ -31,6 +31,10 @@ Use the URL printed by Astro. The dev server and preview server default to ports
 - Edit the application diagram in `src/components/Workflow.astro` and the screenshot captions in `src/components/HousingScreenshots.astro`. The housing screenshots are in `public/projects/housing/` and come from the supplied project archive.
 - The shared layout lives in `src/layouts/Site.astro` and the site styles live in `src/styles/site.css`.
 
+## Contact form
+
+Enter your Web3Forms access key in `settings.web3FormsAccessKey` in `src/content/settings.ts`, then rebuild and deploy. This key is included in the public form HTML. When it is empty, the submit button is disabled and visitors can still use the direct contact links. With JavaScript disabled, Web3Forms displays its hosted success page after an accepted submission.
+
 ## Static hosting
 
 The portfolio is configured for [GitHub Pages](https://meaytac.github.io/). Pushes to `main` build and deploy the site through `.github/workflows/deploy.yml`. In the repository’s Pages settings, set the source to GitHub Actions.

@@ -21,7 +21,7 @@ const navigation = [
   { label: 'About', href: '/#about' },
   { label: 'Education', href: '/#education' },
   { label: 'Skills', href: '/#skills' },
-  ...(contacts.length > 0 ? [{ label: 'Contact', href: '#contact' }] : []),
+  { label: 'Contact', href: '/#contact' },
   ...(resume.pdf || resume.image ? [{ label: 'Résumé', href: '/resume/' }] : []),
 ];
 ---
@@ -81,7 +81,8 @@ const navigation = [
     <main id="main" tabindex="-1">
       <slot />
     </main>
-    <footer id={contacts.length > 0 ? 'contact' : undefined} class="site-footer">
+    <footer class="site-footer">
+      <slot name="contact" />
       <div class="wrap footer-inner">
         <div class="footer-brand">
           <p>{profile.name}</p>
@@ -97,7 +98,7 @@ const navigation = [
         </div>
         {contacts.length > 0 && (
           <div>
-            <h2>Contact</h2>
+            <h2>Contact directly</h2>
             <ul class="footer-links footer-contacts" role="list">
               {contacts.map(({ label, href }) => <li><a href={href}><ContactIcon label={label} /> {label}</a></li>)}
             </ul>

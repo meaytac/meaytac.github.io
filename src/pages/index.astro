@@ -2,6 +2,7 @@
 import Site from '../layouts/Site.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SkillIcon from '../components/SkillIcon.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { profile, projects } from '../content/portfolio';
 import { resume } from '../content/resume';
 ---
@@ -78,4 +79,5 @@ import { resume } from '../content/resume';
     </section>
 
   </div>
+  <ContactForm slot="contact" />
 </Site>
