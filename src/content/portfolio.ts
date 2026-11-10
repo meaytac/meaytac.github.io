@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Mustafa Eren Aytaç',
   title: 'Software Engineering Student',
-  introduction: 'I’m a final-year software engineering student at Malatya Turgut Özal University, focused on AI and machine learning. I use Python to prepare and analyze data, and I helped build a full-stack housing application during my software engineering internship.',
+  introduction: 'I’m a final-year software engineering student focused on applied AI. I’m exploring model training, evaluation, and retrieval-augmented generation (RAG) systems. My backend experience includes ASP.NET Core Web API and Entity Framework Core.',
   about: [
     'I’m a final-year software engineering student at Malatya Turgut Özal University. I’m focusing on artificial intelligence and machine learning, with a particular interest in how data quality shapes what a model can learn and how to evaluate its results.',
     'From July to August 2026, I worked remotely as a software engineering intern at the university’s Digital Transformation Office. I helped build a web application for student dormitories and staff housing. I developed workflows for facility officers to review applications, assign rooms, and manage occupancy. I also implemented JWT authentication and role-based access to restrict who could open submitted documents.',
