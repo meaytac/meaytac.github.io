@@ -76,24 +76,25 @@ const accessKey = settings.web3FormsAccessKey.trim();
 
 <style>
   .contact-section {
-    padding-block: clamp(2rem, 5vw, 4rem) 1.5rem;
+    max-width: 48rem;
+    padding-block: clamp(1.5rem, 3vw, 2.5rem) 1.25rem;
     border-bottom: 1px solid color-mix(in srgb, var(--lavender) 28%, transparent);
   }
   h2 {
-    margin-bottom: 1rem;
-    font-size: clamp(2rem, 4.2vw, 3rem);
+    margin-bottom: .85rem;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
     letter-spacing: -.055em;
   }
   p { color: var(--lavender); }
   #contact-unavailable { margin-bottom: 1rem; }
   fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
-  .contact-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .contact-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
   .contact-field { display: grid; gap: .35rem; }
   .contact-message { grid-column: 1 / -1; }
   label { font-weight: 650; }
   .contact-field input, textarea {
     width: 100%;
-    padding: .65rem .85rem;
+    padding: .5rem .75rem;
     border: 1px solid var(--iris);
     border-radius: var(--radius);
     background: var(--diagram);
@@ -102,9 +103,9 @@ const accessKey = settings.web3FormsAccessKey.trim();
   }
   textarea { resize: vertical; }
   .contact-section :focus-visible { outline-color: var(--lavender); }
-  .button { margin-top: 1rem; border: 0; cursor: pointer; }
+  .button { margin-top: .75rem; border: 0; cursor: pointer; }
   .button:disabled { cursor: not-allowed; opacity: .7; transform: none; box-shadow: none; }
-  #contact-status { margin-top: .75rem; }
+  #contact-status:not(:empty) { margin-top: .75rem; }
 
   @media (max-width: 42rem) {
     .contact-fields { grid-template-columns: minmax(0, 1fr); }
