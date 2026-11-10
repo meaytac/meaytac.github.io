@@ -171,9 +171,12 @@ h1 {
 .hero h1 { margin-block: .65rem 1rem; }
 .hero-intro, .case-intro, .about-intro {
   color: var(--muted);
+}
+.hero-intro, .case-intro {
   font-size: clamp(1.0625rem, 2.3vw, 1.25rem);
 }
 .hero-intro { max-inline-size: 57ch; }
+.about-intro { font-size: clamp(1rem, 1.7vw, 1.0625rem); }
 
 .hero-actions, .project-links {
   display: flex;
